@@ -1,6 +1,10 @@
 #include "stdio.h"
 #include "stdlib.h"
 
+/**
+ * @brief int list
+ *
+ */
 typedef struct list
 {
     int score;
@@ -21,7 +25,9 @@ Linklist *create(int n)
     for (size_t i = 0; i < n; i++)
     {
         node = (Linklist *)malloc(sizeof(Linklist));
-        scanf("%d", &node->score);
+        // printf("input %s node's score", i);
+        // scanf("%d", &node->score);
+        node->score = i;
         end->next = node;
         end = node;
     }
@@ -31,23 +37,24 @@ Linklist *create(int n)
 
 /**
  * @brief modify node's score
- * 
+ *
  * @param list the list to modify
  * @param n The location of the node to modify
  */
 void change(Linklist *list, int n)
 {
-    Linklist *list = list;
+    Linklist *t = list;
     int i = 0;
-    while (i < n && list != NULL)
+    while (i < n && t != NULL)
     {
-        list = list->next;
+        t = t->next;
         i++;
     }
-    if (list != NULL)
+    if (t != NULL)
     {
-        puts("请输入要修改的节点值");
-        scanf("%d", &list->score);
+        // puts("请输入要修改的节点值");
+        // scanf("%d", &t->score);
+        t->score = 9;
     }
     else
     {
@@ -55,14 +62,43 @@ void change(Linklist *list, int n)
     }
 }
 
-void delete(Linklist *list, int n){
-
+Linklist *delete (Linklist *list, int n)
+{
+    Linklist *t = list;
+    Linklist *in;
+    int i = 0;
+    while (i < n && t != NULL)
+    {
+        in = t;
+        t = t->next;
+        i++;
+    }
+    if (t != NULL)
+    {
+        in->next = t->next;
+        free(t);
+    }
+    return in;
 }
 
-void insert(Linklist *list, int n){
-    
+// void insert(Linklist *list, int n)
+// {
+// }
+
+void listToString(Linklist *list)
+{
+    Linklist *t = list;
+    while (t->next != NULL)
+    {
+        t = t->next;
+        printf("%d", t->score);
+    }
 }
 
 void main()
 {
+    Linklist *list = create(5);
+    change(list, 2);
+    delete(list, 2);
+    listToString(list);
 }
