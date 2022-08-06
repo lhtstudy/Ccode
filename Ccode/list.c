@@ -62,29 +62,62 @@ void change(Linklist *list, int n)
     }
 }
 
+/**
+ * @brief delete specified node
+ *
+ * @param list the list to modify
+ * @param n The location of the node to delete
+ * @return Linklist* modified list
+ */
 Linklist *delete (Linklist *list, int n)
 {
     Linklist *t = list;
-    Linklist *in;
+    Linklist *ret;
     int i = 0;
     while (i < n && t != NULL)
     {
-        in = t;
+        ret = t;
         t = t->next;
         i++;
     }
     if (t != NULL)
     {
-        in->next = t->next;
+        ret->next = t->next;
         free(t);
     }
-    return in;
+    return ret;
 }
 
-// void insert(Linklist *list, int n)
-// {
-// }
+/**
+ * @brief insert new node to list
+ *
+ * @param list the list to modify
+ * @param n The location of the node to insert
+ * @return Linklist* modified list
+ */
+Linklist *insert(Linklist *list, int n)
+{
+    Linklist *t = list;
+    int i = 0;
+    Linklist *ret;
+    while (i < n && t != NULL)
+    {
+        ret = t;
+        t = t->next;
+        i++;
+    }
+    Linklist *newNode = (Linklist *)malloc(sizeof(Linklist));
+    newNode->score = 8;
+    ret->next = newNode;
+    newNode->next = t;
+    return ret;
+}
 
+/**
+ * @brief output list
+ *
+ * @param list
+ */
 void listToString(Linklist *list)
 {
     Linklist *t = list;
@@ -99,6 +132,7 @@ void main()
 {
     Linklist *list = create(5);
     change(list, 2);
-    delete(list, 2);
+    delete (list, 2);
+    insert(list, 2);
     listToString(list);
 }
