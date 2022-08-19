@@ -69,7 +69,7 @@ void change(Linklist *list, int n)
  * @param n The location of the node to delete
  * @return Linklist* modified list
  */
-Linklist *delete (Linklist *list, int n)
+Linklist *delete(Linklist *list, int n)
 {
     Linklist *t = list;
     Linklist *ret;
