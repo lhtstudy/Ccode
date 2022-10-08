@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "string_view": "cpp",
+        "random": "c",
+        "cstdlib": "cpp",
+        "numbers": "cpp",
+        "array": "cpp",
+        "string": "cpp"
+    }
+}

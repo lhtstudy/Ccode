@@ -2,6 +2,8 @@
 
 void main()
 {
-    printf("hello world");
-    // system("pause");
+    int a;
+    printf("hello %d", a);
+    char c;
+    printf("hello %c", c);
 }

@@ -1,9 +1,12 @@
 #include "stdio.h"
 #include "stdlib.h"
 
-void main(){
-    int a = 0;
-    scanf("%d", &a);
-    printf("%d", a);
-    getchar();
+int main()
+{
+    int a, b;
+    while (scanf("%d %d", &a, &b) != EOF)
+    {
+        printf("%d\n", a + b);
+    }
+    return 0;
 }
