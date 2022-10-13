@@ -1,5 +1,6 @@
 #include <iostream>
 using namespace std;
+// 循环双链表
 
 /**
  * @brief 整形双链表
@@ -30,8 +31,8 @@ bool initList(DLinkList &doubleLinkList)
         return false;
     }
     // 初始化
-    head->prior = NULL;
-    head->next = NULL;
+    head->prior = head;
+    head->next = head;
     head->data = 0;
     return true;
 }
@@ -63,11 +64,10 @@ bool insertNode(DLinkList &doubleLinkList, int location, int data)
             DLNode *newNode = new DLNode;
             // 改变指针
             newNode->next = tmpNode->next;
-            // 如果有后继节点
-            if (tmpNode->next != NULL)
-            {
-                tmpNode->next->prior = newNode;
-            }
+
+            // 无需再判空
+            tmpNode->next->prior = newNode;
+
             newNode->prior = tmpNode;
             tmpNode->next = newNode;
             // 赋值
@@ -76,13 +76,13 @@ bool insertNode(DLinkList &doubleLinkList, int location, int data)
         }
         number++;
         tmpNode = tmpNode->next;
-    } while (tmpNode != NULL);
+    } while (tmpNode != doubleLinkList);
     return false;
 }
 
 /**
  * @brief 删除指定位序的节点
- * 
+ *
  * @param doubleLinkList 双链表
  * @param location 位序
  * @return true 删除成功
@@ -103,23 +103,22 @@ bool removeNodeByLoction(DLinkList &doubleLinkList, int location)
         {
             // 改变指针
             tmpNode->prior->next = tmpNode->next;
-            // 如果有后继节点
-            if (tmpNode->next != NULL)
-            {
-                tmpNode->next->prior = tmpNode->prior;
-            }
+
+            // 无需判空
+            tmpNode->next->prior = tmpNode->prior;
+
             delete (tmpNode);
             return true;
         }
         number++;
         tmpNode = tmpNode->next;
-    } while (tmpNode != NULL);
+    } while (tmpNode != doubleLinkList);
     return false;
 }
 
 /**
  * @brief 删除指定值的节点
- * 
+ *
  * @param doubleLinkList 双链表
  * @param data 数据
  * @return true 删除成功
@@ -128,18 +127,16 @@ bool removeNodeByLoction(DLinkList &doubleLinkList, int location)
 bool removeNodeBydata(DLinkList &doubleLinkList, int data)
 {
     DLNode *tmpNode = doubleLinkList->next; // 临时节点遍历链表，从第一个节点开始
-    while (tmpNode != NULL)
+    while (tmpNode != doubleLinkList)
     {
         // 当前位置为删除节点
         if (tmpNode->data == data)
         {
             // 改变指针
             tmpNode->prior->next = tmpNode->next;
-            // 如果有后继节点
-            if (tmpNode->next != NULL)
-            {
-                tmpNode->next->prior = tmpNode->prior;
-            }
+
+            tmpNode->next->prior = tmpNode->prior;
+
             delete (tmpNode);
             return true;
         }
@@ -156,7 +153,8 @@ bool removeNodeBydata(DLinkList &doubleLinkList, int data)
 void toString(DLinkList &doubleLinkList)
 {
     cout << '{';
-    while (doubleLinkList->next != NULL)
+    DLNode *tmpNode = doubleLinkList;
+    while (doubleLinkList->next != tmpNode)
     {
         doubleLinkList = doubleLinkList->next;
         cout << doubleLinkList->data;
